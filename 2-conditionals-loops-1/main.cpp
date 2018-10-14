@@ -5,67 +5,58 @@ using namespace std;
 
 int main() {
 	double a, b, c, x, xn, xk, dx, F;
-	int ac, bc, cc;
+	const double eps = 1e-5;
 
 	cout << "Vvedite znachenie a: " << endl;
-	cin >> a ;
-
+	cin >> a;
 	cout << "Vvedite znachenie b: " << endl;
-	cin >> b ;
-
+	cin >> b;
 	cout << "Vvedite znachenie c: " << endl;
-	cin >> c ;
-
+	cin >> c;
 	cout << "Vvedite znachenie xn: " << endl;
-	cin >> xn ;
-
+	cin >> xn;
 	cout << "Vvedite znachenie xk: " << endl;
-	cin >> xk ;
-
+	cin >> xk;
 	cout << "Vvedite znachenie dx: " << endl;
-	cin >> dx ;
-
+	cin >> dx;
 	cout << endl;
 
-	// так как ац, бц, сц это целые части а, б, с
-	
-	ac = int(a);
-	bc = int(b);
-	cc = int(c);
-
-	cout.width(12);
-	cout << " | " <<  "- - - - - - -"   << " | "  << "- - - - - - -"  << " | " << endl;
-
-	cout.width(12);
-	cout << " | " << setw(8) << "X " << setw(8) <<  " | " << setw(8) << setprecision(3) << "F " << setw(8) << " | " << endl;
-
-	cout.width(12);
-	cout << " | "  << "- - - - - - -"  << " | "  << "- - - - - - -"  << " | " << endl;
-	
+	if ((fabs(xn - xk) < eps) || (fabs(dx) < eps))
+	{
+		cout << "Dannie vvedeni neverno" << endl;
+		return 0;
+	}
+		
+    cout << setw(12) << " | " <<  "- - - - - - -"   << " | "  <<
+	"- - - - - - -"  << " | " << endl; 
+	cout << setw(12) << " | " << setw(8) << "X " << setw(8) <<  " | "
+	<<	setw(8) << setprecision(3) << "F " << setw(8) << " | " << endl; 	
+	cout << setw(12) << " | "  << "- - - - - - -"  << " | "  <<
+	"- - - - - - -"  << " | " << endl; 	
 	
 	for (x = xn; x < xk; x += dx) {
 
-		if ((c < 0) && (x != 0)) F = -a * x - c;
-		if ((c > 0) && (x == 0)) F = (x - a) / -c;
-		else F = b*x / (c - a);
+		if ((c < 0) && (fabs(x) > eps)) F = -a * x - c;
+		if ((c > 0) && (fabs(x) < eps)) F = (x - a) / -c;
+		else if (fabs(a-c) > eps)
+		F = b*x / (c - a);
+		{	cout << setw(12) << " | " << setw(8) << x;
 
-		if (ac || bc || cc != 0)
-		{
-			cout.width(12);
-			cout << " | " << setw(8) << x << setw(8) << " | " << setw(8) << F << setw(8) << " | " << endl;
-			cout.width(12);
-			cout << " | " << "- - - - - - -" << " | " << "- - - - - - -" << " | " << endl;
+			if (int(a) || int(b) || int(c) != 0)
+			{
+				cout << setw(8) << " | "
+				<< setw(8) << F << setw(8) << " | " << endl;
+			}
+
+			else // elsi ac, bc, cc ravni 0, to F celochislennoe
+			{
+				cout << setw(8) << " | " << setw(8) << setprecision(3) <<
+				int(F) << setw(8) << " | " << endl;
+			}
+
+			cout << setw(12) << " | " << "- - - - - - -" << " | " <<
+				"- - - - - - -" << " | " << endl;
 		}
-
-		else // если ац, бц, сц равны нулю, то F целочисленное
-		{
-			cout.width(12);
-			cout << " | " << setw(68) << x << setw(8) << " | " << setw(8) << setprecision(3) << int(F) << setw(8) << " | " << endl;
-			cout.width(12);
-			cout << " | " << "- - - - - - -" << " | " << "- - - - - - -" << " | " << endl;
-		}
-
-
 	}
 
 	return 0;
