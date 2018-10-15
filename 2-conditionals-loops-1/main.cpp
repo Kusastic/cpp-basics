@@ -3,10 +3,11 @@
 
 using namespace std;
 
-int main() {
-	double a, b, c, x, xn, xk, dx, F;
-	const double eps = 1e-5;
+int main()
+{
+	const double kEps = 1e-15;
 
+	double a, b, c, xn, xk, dx;
 	cout << "Vvedite znachenie a: " << endl;
 	cin >> a;
 	cout << "Vvedite znachenie b: " << endl;
@@ -19,46 +20,47 @@ int main() {
 	cin >> xk;
 	cout << "Vvedite znachenie dx: " << endl;
 	cin >> dx;
-	cout << endl;
 
-	if ((fabs(xn - xk) < eps) || (fabs(dx) < eps))
+	if (dx < kEps)
 	{
-		cout << "Dannie vvedeni neverno" << endl;
-		return 0;
+		cout << "\ndx vveden neverno!!!" << endl;
+		return 1;
 	}
-		
-    cout << setw(12) << " | " <<  "- - - - - - -"   << " | "  <<
-	"- - - - - - -"  << " | " << endl; 
-	cout << setw(12) << " | " << setw(8) << "X " << setw(8) <<  " | "
-	<<	setw(8) << setprecision(3) << "F " << setw(8) << " | " << endl; 	
-	cout << setw(12) << " | "  << "- - - - - - -"  << " | "  <<
-	"- - - - - - -"  << " | " << endl; 	
-	
-	for (x = xn; x < xk; x += dx) {
 
-		if ((c < 0) && (fabs(x) > eps)) F = -a * x - c;
-		if ((c > 0) && (fabs(x) < eps)) F = (x - a) / -c;
-		else if (fabs(a-c) > eps)
-		F = b*x / (c - a);
-		{	cout << setw(12) << " | " << setw(8) << x;
+	cout << setw(44) << "| - - - - - - - | - - - - - - - |\n";
+	cout << setw(44) << "|       X       |       F       |\n";
+	cout << setw(44) << "| - - - - - - - | - - - - - - - |\n";
 
-			if (int(a) || int(b) || int(c) != 0)
+	cout << fixed;
+	cout.precision(3);
+
+	double F;
+	for (double x = xn; x < xk; x += dx)
+	{
+		cout << setw(11) << "|" << setw(10) << x << setw(6) << "|";
+
+		if ((c < 0) && !(abs(x) < kEps))
+			F = -a * x - c;
+		if ((c > 0) && (abs(x) < kEps))
+			F = (x - a) / -c;
+		else
+		{
+			if (abs(c - a) < kEps)
 			{
-				cout << setw(8) << " | "
-				<< setw(8) << F << setw(8) << " | " << endl;
+				cout << " division by 0 |\n";
+				continue;
 			}
-
-			else // elsi ac, bc, cc ravni 0, to F celochislennoe
-			{
-				cout << setw(8) << " | " << setw(8) << setprecision(3) <<
-				int(F) << setw(8) << " | " << endl;
-			}
-
-			cout << setw(12) << " | " << "- - - - - - -" << " | " <<
-				"- - - - - - -" << " | " << endl;
+			else
+				F = b * x / (c - a);
 		}
+
+		if ((int(a) | int(b) | int(c)) != 0)
+			cout << setw(10) << F << setw(7) << "|\n";
+		else
+			cout << setw(8) << int(F) << setw(9) << "|\n";
+
 	}
+	cout << setw(44) << "| - - - - - - - | - - - - - - - |\n";
 
 	return 0;
-
 }
