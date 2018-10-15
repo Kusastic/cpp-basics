@@ -35,13 +35,13 @@ int main()
 	cout.precision(3);
 
 	double F;
-	for (double x = xn; x < xk; x += dx)
+	for (double x = xn; x <= xk; x += dx)
 	{
 		cout << setw(11) << "|" << setw(10) << x << setw(6) << "|";
 
 		if ((c < 0) && !(abs(x) < kEps))
 			F = -a * x - c;
-		if ((c > 0) && (abs(x) < kEps))
+		else if ((c > 0) && (abs(x) < kEps))
 			F = (x - a) / -c;
 		else
 		{
