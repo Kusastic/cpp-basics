@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include <cmath>
+
 using namespace std;
 
 const int n = 3; //kolichestvo elem ^2 massiva
@@ -47,7 +47,7 @@ void proizv()
 	}
 }
 
-void maxsummadiag()
+void maxsumdiag()
 {
 	int max = 0, n, v;
 
@@ -80,7 +80,7 @@ int main()
 	vivodmas();
 
 	proizv();
-	maxsummadiag();
+	maxsumdiag();
 
 	return 0;
 }

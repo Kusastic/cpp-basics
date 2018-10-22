@@ -1,19 +1,19 @@
 #include <iostream>
 #include <iomanip>
-#include <cmath>
+
 using namespace std;
 
-const int n = 10; //kolichestvo elem massiva
-int a[n] = {-4, -3, -2, -1, 0 , 1, 2, 3, 4, 5};
+const int n = 10; 
+int a[n] = {-10, 1, -4, -2, 0 , 1, 6, 3, -9, 5};
 
-void vivodmas()
+void arrayout()
 {
 	for (int i = 0; i < n; i++)
 		cout << setw(3) << a[i] << setw(3);
 	cout << endl; 
 }
 
-void summa()
+int sum()
 {
 	int sum = 0;
 
@@ -23,13 +23,13 @@ void summa()
 			sum += a[i];
 	}
 
-	cout << "Summa nechetnich elementov massiva: " << sum << endl;
+	return sum;
 }
 
-int min = 0, minind; //min chislo kot budet > lubogo drugogo otr chisla v mas
-
-int poiskmin()
+int findmin()
 {
+	int min = 0, minind = 0;
+
 	for (int i = 0; i < n; i++)
 
 		if ((a[i] <= min) && (a[i] < 0))
@@ -47,13 +47,13 @@ int poiskmin()
 		return 0;
 	}
 	
-	return min, minind;
+	return min;
 } 
 
-int max = -1000, maxind; //max otricat chislo kot budet < lubogo drugogo otr chisla v mas
-
-int poiskmax()
+int findmax()
 {
+	int max = -1000, maxind = 0;
+
 	for (int i = 0; i < n; i++)
 
 		if ((a[i] >= max) && (a[i] < 0))
@@ -72,10 +72,10 @@ int poiskmax()
 	}
 
 	
-	return max, maxind;
+	return max;
 }
 
-void otricsum()
+int negativesum(int min, int max)
 {
 	int sum = 0;
 
@@ -86,13 +86,10 @@ void otricsum()
 	}
 	sum -= (max + min); //Vichitaem iz summi min i max otr element
 
-	if ((sum >= 0) || (min == max))
-		cout << "Ne syshestvyet elementov mejdy min i max otric element" << endl;
-	else 
-        cout << "Summa elementov mejdy pervim i poslednim otricatel'nim elementom massiva: " << sum << endl;
+	return sum;
 }
 
-void szatmas()
+void removearray()
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -115,18 +112,20 @@ void szatmas()
 
 int main()
 {
-	summa();
-    poiskmin();
-    poiskmax();
-    otricsum(); 
+	int sumofodd = sum();
+	cout << "Summa nechetnich elementov massiva: " << sumofodd << endl;
 
-	cout << "Original array: ";
-	vivodmas();
-		
-	szatmas();
+	int min = findmin();
+	int max = findmax();
+	int negsum = negativesum(min, max);
+	if ((negsum >= 0) || (min == max))
+		cout << "There is no elements between min&max " << endl;
+	else
+		cout << "Sum of elements between first&last negative elements of array: " << negsum << endl;
 
+	removearray();
 	cout << "Changed array: ";
-	vivodmas();
+	arrayout();
 
 	return 0;
 }
