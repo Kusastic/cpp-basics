@@ -4,7 +4,7 @@
 using namespace std;
 
 const int n = 10; //kolichestvo elem massiva
-int a[n];
+int a[n] = {-4, -3, -2, -1, 0 , 1, 2, 3, 4, 5};
 
 void vivodmas()
 {
@@ -30,9 +30,7 @@ int min = 0, minind; //min chislo kot budet > lubogo drugogo otr chisla v mas
 
 int poiskmin()
 {
-	int i;
-
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 
 		if ((a[i] <= min) && (a[i] < 0))
 		{
@@ -56,9 +54,7 @@ int max = -1000, maxind; //max otricat chislo kot budet < lubogo drugogo otr chi
 
 int poiskmax()
 {
-	int i;
-
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 
 		if ((a[i] >= max) && (a[i] < 0))
 		{
@@ -81,9 +77,9 @@ int poiskmax()
 
 void otricsum()
 {
-	int sum = 0, i;
+	int sum = 0;
 
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		if ((a[i] >= min) && (a[i] <= max))
 			sum += a[i];
@@ -119,10 +115,6 @@ void szatmas()
 
 int main()
 {
-	cout << "Vvedite znacheniya elementov massiva: ";
-	for (int i = 0; i < n ; i++)
-		cin >> a[i];
-
 	summa();
     poiskmin();
     poiskmax();

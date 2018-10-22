@@ -1,64 +1,61 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+
 using namespace std;
 
 int main()
-{	const int MaxIter = 500;
-	double y, T, xk, xn, dx, eps;
-	int n;
+{
+	const int kMaxIters = 1000000;
 
-	cout << "Znachenie -1 > x >= 1 !!! \n";
-	cout << "Vvedite znachenie xn: ";
+	double xn, xk, dx, eps;
+	cout << "-1 < x <= 1\n";
+	cout << "Vvedite xn: ";
 	cin >> xn;
-	cout << "Vvedite znachenie xk: ";
+	cout << "Vvedite xk >= xn: ";
 	cin >> xk;
-	cout << "Vvedite znachenie dx: ";
+	cout << "Vvedite dx > 0: ";
 	cin >> dx;
-	cout << "Vvedite znachenie tochnosti eps > 0 : ";
+	cout << "Vvedite eps > 0: ";
 	cin >> eps;
 
-	if ((xn < -1) || (xn > 1) || (xk < -1) || (xk > 1)
-		|| (fabs(dx) < eps) || (eps <= 0))
+	if ((xn <= -1) || (xn > xk) || (xk > 1) || (dx <= 0) || (eps <= 0))
 	{
-		cout << "Wrong data!" << endl;
-		return 0;
+		cout << "\nWrong input data!\n";
+		return 1;
 	}
 
-	else
+	cout << "| - - - - - - - - | - - - - - - - - ";
+	cout << "| - - - - - - - - | - - - - - - - |\n";
+	cout << "|        x        |  ln(x+1) (mine) ";
+	cout << "| ln(x+1) (cmath) |   iterations  |\n";
+	cout << "| - - - - - - - - | - - - - - - - - ";
+	cout << "| - - - - - - - - | - - - - - - - |\n";
 
-	cout << "| - - - - - - - | - - - - - - - |" ;
-	cout << " - - - - - - - | - - - - - - - |\n" ;
-	cout << "|       X       |  F (series)   |";
-	cout << " F (in-built)  |  Iterations   |\n";
-	cout << "| - - - - - - - | - - - - - - - |";
-	cout << " - - - - - - - | - - - - - - - |\n";
+	cout << fixed;
+	cout.precision(6);
 
 	for (; xn <= xk; xn += dx)
-	{	y = 0.0; //nachal'noe znachenie summi
-		T = 1.0; //=1 tak kak budem * ego
-		
-		for (n = 0; fabs(T) > eps; n++)
-		{ 	T *= (pow(-1, n) * pow(xn, n+1))/(n+1);
-			y += T; // + chlena ryada k summe
-		}
-
-		if (n < MaxIter)
-		{	cout << fixed;
-			cout.precision(3);
-
-			cout << " | " << setw(8) << xn << setw(7) << " | " ;
-			cout << setw(8) << y << setw(8) << " | ";
-			cout << setw(8) << log(xn + 1) << setw(8) << " | ";
-		    cout << setw(8) << n << setw(9) << " | \n";
-		}
-		else
+	{
+		int n;
+		double ln = 0;
+		for (n = 0; n <= kMaxIters; n++)
 		{
-			cout << "MaxIter!!!" << endl;
-			return 0;
+			double nth_term = (pow(-1, n) * pow(xn, n + 1)) / (n + 1);
+			ln += nth_term;
+			if (abs(nth_term) < eps) break;
 		}
+
+		cout << "|" << setw(13) << xn << setw(5) << "|";
+		if (n <= kMaxIters)
+			cout << setw(13) << ln << setw(5);
+		else
+			cout << " limit exceeded! ";
+		cout << "|" << setw(13) << log(xn + 1) << setw(5);
+		cout << "|" << setw(9) << n << setw(8) << "|\n";
 	}
-	cout << " | " << "- - - - - - -" << "| " << "- - - - - - -" << " | " <<
-		"- - - - - - -" << " | " << "- - - - - - -" << " | " << endl;
+	cout << "| - - - - - - - - | - - - - - - - - ";
+	cout << "| - - - - - - - - | - - - - - - - |";
+
 	return 0;
 }
