@@ -15,22 +15,17 @@ void vivodmas(int **a, int n)
 
 void proizv(int **a, int n)
 {
-	int przvd, part;
-
 	for (int i = 0; i < n; i++)
 	{
-		przvd = a[i][0];
-		part = 1;
+		int przvd = a[i][0], part = 1;
 
 		for (int j = 0; j < n-1; j++)
 		{
-
 			if ((a[i][j] > 0) && (a[i][j + 1] > 0))
 			{
 				part = a[i][j + 1];
 				przvd *= part;
 			}
-
 			else
 			{
 				przvd = 0;
@@ -43,8 +38,7 @@ void proizv(int **a, int n)
 			cout << setw(22) << "Proizvedenie stroki: " << i + 1;
 			cout << " = " << przvd << endl;
 			//i+1 because array starts with 0
-		}
-		
+		}		
 	}
 }
 
@@ -54,43 +48,28 @@ int sum = -1000;
 
 for (int i = 1; i < n; i++)
 {
-	int sum1 = 0;
+	int sum1 = 0, sum2 = 0;
 
 	for (int j = 0, k = j; j < n - i; j++, k++)
 	{
 		sum1 += a[j + i][k];
+		sum2 += a[j][k + i];
 	}
 
 	if (sum1 >= sum)
 		sum = sum1;
-}
-
-for (int i = 1; i < n; i++) {
-
-	int sum2 = 0;
-
-	for (int j = 0, k = j; j < n - i; j++, k++)
-	{
-		sum2 += a[j][k + i];
-	}
-
 	if (sum2 >= sum)
 		sum = sum2;
-	
-	return sum;
 }
-
-
-
+	return sum;
 }
 
  int main()
  {
-	 int n;
-	 cout << "Vvedite kolichestvo elements of array ^2 : ";
+	int n;
+	cout << "Vvedite kolichestvo elements of array ^2 : ";
 		 cin >> n;
-
-		 if (n <= 0)
+	if (n <= 0)
 		 {
 			 cout << "Wrong data!!!";
 			 return 0;
@@ -109,11 +88,13 @@ for (int i = 1; i < n; i++) {
 		for (int j = 0; j < n; j++)
 			cin >> a[i][j];
 	}
-
 	cout << endl;
+
 	vivodmas(a, n);
+
 	proizv(a, n);
 	int sum = maxsumdiag(a, n);
+	if (!(sum == -1000))
 	cout << setw(32) << "Max sum of diagonals in array: " << sum;
 
 	for (int i = 0; i < n; i++) //cleaning services
