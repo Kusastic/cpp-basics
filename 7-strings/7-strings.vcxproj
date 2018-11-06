@@ -23,6 +23,7 @@
     <ProjectGuid>{7C730BF2-189D-4EF4-9B39-EEA8C7C1EC30}</ProjectGuid>
     <RootNamespace>My7strings</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <ProjectName>07-strings</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

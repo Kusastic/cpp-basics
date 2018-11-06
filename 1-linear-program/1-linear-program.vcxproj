@@ -23,6 +23,7 @@
     <ProjectGuid>{77A3F47C-6BF6-4909-846C-D20B7B87001B}</ProjectGuid>
     <RootNamespace>My1linearprogram</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <ProjectName>01-linear-program</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
