@@ -3,14 +3,14 @@
 
 using namespace std;
 
-const int n = 10; 
-int a[n] = {-10, 1, -4, -2, 0 , 1, 6, 3, -9, 5};
+const int n = 10;
+int a[n] = { -10, 1, -4, -2, 0 , 1, 6, 3, -9, 5 };
 
 void arrayout()
 {
 	for (int i = 0; i < n; i++)
 		cout << setw(3) << a[i] << setw(3);
-	cout << endl; 
+	cout << endl;
 }
 
 int sum()
@@ -36,7 +36,7 @@ int findmin()
 		{
 			minind = i;
 			min = a[minind];
-		}	
+		}
 
 	if (min != 0)
 		cout << "Min - element: " << min << endl;
@@ -46,9 +46,9 @@ int findmin()
 		cout << "Ne syshestvuet min otricatel'nogo elementa" << endl;
 		return 0;
 	}
-	
+
 	return min;
-} 
+}
 
 int findmax()
 {
@@ -60,7 +60,7 @@ int findmax()
 		{
 			maxind = i;
 			max = a[maxind];
-		}	
+		}
 
 	if (max != -1000)
 		cout << "Max - element: " << max << endl;
@@ -71,7 +71,7 @@ int findmax()
 		return 0;
 	}
 
-	
+
 	return max;
 }
 
@@ -97,13 +97,13 @@ void removearray()
 			a[i] = 0;
 	}
 
-	for (int i = 0; i < n - 1; i++) 
+	for (int i = 0; i < n - 1; i++)
 	{
-		for (int j = 0; j < n - 1 - i; j++) 
+		for (int j = 0; j < n - 1 - i; j++)
 		{
-			if (a[j] == 0) 
+			if (a[j] == 0)
 			{
-				a[j] = a[j + 1]; 
+				a[j] = a[j + 1];
 				a[j + 1] = 0;
 			}
 		}

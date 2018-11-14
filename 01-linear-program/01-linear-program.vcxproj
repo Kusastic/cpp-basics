@@ -20,10 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{D9B1FB31-3BD5-4456-AAF3-86F9A2FC1A2C}</ProjectGuid>
-    <RootNamespace>My6arrays2d</RootNamespace>
+    <ProjectGuid>{58052BAA-FDE0-459F-BB02-34254F80D24B}</ProjectGuid>
+    <RootNamespace>My01linearprogram</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <ProjectName>06-arrays-2d</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

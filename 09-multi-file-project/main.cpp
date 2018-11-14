@@ -8,7 +8,7 @@ int main()
 	const int n = 10;
 	int a[n] = { -10, 1, -4, -2, 0 , 1, 6, 3, -9, 5 };
 
-	int sumofodd = sum(a,n);
+	int sumofodd = sum(a, n);
 	cout << "Summa nechetnich elementov massiva: " << sumofodd << endl;
 
 	int min = findmin(a, n);

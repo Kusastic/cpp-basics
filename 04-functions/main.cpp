@@ -20,8 +20,8 @@ double Functionln(int n, const int kMaxIters, double xn, double eps)
 	{
 		double nth_term = (pow(-1, n) * pow(xn, n + 1)) / (n + 1);
 		ln += nth_term;
-		if (abs(nth_term) < eps) break;		
-	}	
+		if (abs(nth_term) < eps) break;
+	}
 	return ln;
 }
 

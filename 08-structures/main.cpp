@@ -25,19 +25,19 @@ int main()
 
 	cout << "Vvedite 7 naznachenij samoletov:";
 	for (int i = 0; i < n; i++)
-		cin >> planes[i].nameflight;	
+		cin >> planes[i].nameflight;
 
 	for (int i = 0; i < n - 1; i++)
-	{		
+	{
 		for (int j = 0; j < n - 1 - i; j++)
 		{
 			if (planes[j].numberflight > planes[j + 1].numberflight)
 			{
 				int a = planes[j].numberflight;
 				planes[j].numberflight = planes[j + 1].numberflight;
-				planes[j + 1].numberflight = a;				
+				planes[j + 1].numberflight = a;
 			}
-		}		
+		}
 	}
 
 	for (int i = 0; i < n; i++)
@@ -60,14 +60,14 @@ int main()
 		{
 			flight = true;
 			cout << "Vam podhodit ";
-			cout << planes[i].planetype << " plane " ;
-			cout << "number " << planes[i].numberflight;			
+			cout << planes[i].planetype << " plane ";
+			cout << "number " << planes[i].numberflight;
 			cout << endl;
 		}
 	}
 
 	if (flight == false)
-		cout << "Vam ne podhodit ni odit samolet";	
+		cout << "Vam ne podhodit ni odit samolet";
 
 	return 0;
 }

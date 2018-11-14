@@ -7,7 +7,7 @@ using namespace std;
 void vivodmas(int **a, int n) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++)
-			cout << setw(5) << a[i][j] ;
+			cout << setw(5) << a[i][j];
 		cout << endl;
 	}
 }
@@ -54,7 +54,7 @@ int main() {
 	int n;
 	cout << "(n = kolichestvo strok ^2 in matrix)\n";
 	cout << "Enter 1 <= n <=10: ";
-	
+
 	cin >> n;
 
 	int **a = new int*[n];
@@ -64,13 +64,13 @@ int main() {
 	}
 
 	ifstream fin("file.txt");
-	if (!fin.is_open())  {
+	if (!fin.is_open()) {
 		cout << "Error!! Something went wrong!" << endl;
 		return 0;
-	}	
+	}
 
 	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)		
+		for (int j = 0; j < n; j++)
 			fin >> a[i][j];
 
 	fin.close();
@@ -82,7 +82,7 @@ int main() {
 	if (!(sum == -1000))
 		cout << setw(32) << "Max sum of diagonals in array: " << sum;
 
-	for (int i = 0; i < n; i++)  {
+	for (int i = 0; i < n; i++) {
 		delete[] a[i];
 	}
 	delete[] a;

@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
 	string str;
-	char glansije [] = { 'E', 'Y', 'U', 'I', 'O', 'e', 'y', 'u', 'i', 'o'};
+	char glansije[] = { 'E', 'Y', 'U', 'I', 'O', 'e', 'y', 'u', 'i', 'o' };
 
 	ifstream fin("text.txt");
 	if (!fin.is_open())
@@ -20,7 +20,7 @@ int main()
 
 	cout << "Slova nachinaushiesya s glasnih bukv: \n";
 
-	while (getline(fin, str)) 
+	while (getline(fin, str))
 	{
 		for (unsigned int i = 0; i < str.length(); i++)
 			if (find(glansije, glansije + 10, str[i]) != (glansije + 10))
@@ -28,11 +28,11 @@ int main()
 				{
 					while (isalpha(str[i]))
 						cout << str[i++];
-					cout << endl;					
+					cout << endl;
 				}
 	}
 
 	fin.close();
 
 	return 0;
-}		
+}
