@@ -3,71 +3,59 @@
 
 using namespace std;
 
-const int n = 7;
-
-struct AEROFLOT
-{
-	string nameflight, planetype;
-	int numberflight;
+struct Aeroflot {
+	string destanation, plane_type;
+	int flight_number;
 };
 
-int main()
-{
-	AEROFLOT planes[n];
+int main() {
+	const int kNumPlanes = 7;
+	Aeroflot planes[kNumPlanes];
 
-	cout << "Vvedite 7 tipov samoletov:";
-	for (int i = 0; i < n; i++)
-		cin >> planes[i].planetype;
+	for (int i = 0; i < kNumPlanes; i++) {
+		cout << "Vvedite tip samoleta " << i + 1 << ": ";
+		getline(cin, planes[i].plane_type);
 
-	cout << "Vvedite 7 nomerov samoletov:";
-	for (int i = 0; i < n; i++)
-		cin >> planes[i].numberflight;
+		cout << "Vvedite nomer samoleta: ";
+		cin >> planes[i].flight_number;
+		cin.ignore();
 
-	cout << "Vvedite 7 naznachenij samoletov:";
-	for (int i = 0; i < n; i++)
-		cin >> planes[i].nameflight;
+		cout << "Vvedite destanation: ";
+		getline(cin, planes[i].destanation);
 
-	for (int i = 0; i < n - 1; i++)
-	{
-		for (int j = 0; j < n - 1 - i; j++)
-		{
-			if (planes[j].numberflight > planes[j + 1].numberflight)
-			{
-				int a = planes[j].numberflight;
-				planes[j].numberflight = planes[j + 1].numberflight;
-				planes[j + 1].numberflight = a;
-			}
-		}
-	}
-
-	for (int i = 0; i < n; i++)
-	{
-		cout << "Plane " << planes[i].planetype;
-		cout << " number " << planes[i].numberflight;
-		cout << " is flying to " << planes[i].nameflight;
 		cout << endl;
 	}
 
-	string naznachenie;
-	cout << "Vvvedite naznachenie: ";
-	cin >> naznachenie;
+	for (int i = 0; i < kNumPlanes - 1; i++)
+		for (int j = 0; j < kNumPlanes - i - 1; j++)
+			if (planes[j].flight_number > planes[j + 1].flight_number)
+				swap(planes[j], planes[j + 1]);
+
+	for (int i = 0; i < kNumPlanes; i++) {
+		cout << "Plane " << planes[i].plane_type;
+		cout << " number " << planes[i].flight_number;
+		cout << " is flying to " << planes[i].destanation;
+		cout << endl;
+	}
+
+	string destanation;
+	cout << "\nVvedite naznachenie: ";
+	getline(cin, destanation);
 	cout << endl;
 
-	bool flight = false;
-	for (int i = 0; i < n; i++)
-	{
-		if (planes[i].nameflight == naznachenie)
-		{
-			flight = true;
+	bool no_flights = true;
+	for (int i = 0; i < kNumPlanes; i++) {
+		if (planes[i].destanation == destanation) {
+			no_flights = false;
 			cout << "Vam podhodit ";
-			cout << planes[i].planetype << " plane ";
-			cout << "number " << planes[i].numberflight;
+			cout << planes[i].plane_type << " plane ";
+			cout << "number " << planes[i].flight_number;
 			cout << endl;
 		}
 	}
 
-	if (flight == false)
-		cout << "Vam ne podhodit ni odit samolet";
+	if (no_flights)
+		cout << "Vam ne podhodit ni odit samolet.";
 
 	return 0;
 }

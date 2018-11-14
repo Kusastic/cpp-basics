@@ -1,10 +1,10 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+
 using namespace std;
 
-void tablehead()
-{
+void PrintTableHead() {
 	cout << "| - - - - - - - - | - - - - - - - - ";
 	cout << "| - - - - - - - - | - - - - - - - |\n";
 	cout << "|        x        |  ln(x+1) (mine) ";
@@ -13,20 +13,17 @@ void tablehead()
 	cout << "| - - - - - - - - | - - - - - - - |\n";
 }
 
-double Functionln(int n, const int kMaxIters, double xn, double eps)
-{
+double ComputeSeries(double xn, int &n, const int kMaxIters, double eps) {
 	double ln = 0;
-	for (n = 0; n <= kMaxIters; n++)
-	{
-		double nth_term = (pow(-1, n) * pow(xn, n + 1)) / (n + 1);
+	for (n = 0; n <= kMaxIters; n++) {
+		double nth_term = pow(-1, n) * pow(xn, n + 1) / (n + 1);
 		ln += nth_term;
 		if (abs(nth_term) < eps) break;
 	}
 	return ln;
 }
 
-void tableend(int n, const int kMaxIters, double xn, double ln)
-{
+void PrintTableRow(double xn, double ln, int n, const int kMaxIters) {
 	cout << "|" << setw(13) << xn << setw(5) << "|";
 	if (n <= kMaxIters)
 		cout << setw(13) << ln << setw(5);
@@ -36,9 +33,8 @@ void tableend(int n, const int kMaxIters, double xn, double ln)
 	cout << "|" << setw(9) << n << setw(8) << "|\n";
 }
 
-int main()
-{
-	const int kMaxIters = 10000;
+int main() {
+	const int kMaxIters = 1000000;
 
 	double xn, xk, dx, eps;
 	cout << "-1 < x <= 1\n";
@@ -51,8 +47,7 @@ int main()
 	cout << "Vvedite eps > 0: ";
 	cin >> eps;
 
-	if ((xn <= -1) || (xn > xk) || (xk > 1) || (dx <= 0) || (eps <= 0))
-	{
+	if ((xn <= -1) || (xn > xk) || (xk > 1) || (dx <= 0) || (eps <= 0))	{
 		cout << "\nWrong input data!\n";
 		return 1;
 	}
@@ -60,14 +55,12 @@ int main()
 	cout << fixed;
 	cout.precision(6);
 
-	tablehead();
+	PrintTableHead();
 
-	for (; xn <= xk; xn += dx)
-	{
+	for (; xn <= xk; xn += dx) {
 		int n = 0;
-
-		double ln = Functionln(n, kMaxIters, xn, eps);
-		tableend(n, kMaxIters, xn, ln);
+		double ln = ComputeSeries(xn, n, kMaxIters, eps);
+		PrintTableRow(xn, ln, n, kMaxIters);
 	}
 
 	cout << "| - - - - - - - - | - - - - - - - - ";

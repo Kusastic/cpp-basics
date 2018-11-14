@@ -1,27 +1,35 @@
-#include <iostream>
 #include "functions.h"
 
-using namespace std;
+int main() {
+	const int kArraySize = 10;
+	double arr[kArraySize] = { 8, -1, .4, -2, 0, .1, 6, .3, -9, 5 };
 
-int main()
-{
-	const int n = 10;
-	int a[n] = { -10, 1, -4, -2, 0 , 1, 6, 3, -9, 5 };
+	cout << "Initial array:\n";
+	PrintArray(arr, kArraySize);
 
-	int sumofodd = sum(a, n);
-	cout << "Summa nechetnich elementov massiva: " << sumofodd << endl;
+	cout << "\nSumma nechetnich elementov massiva: ";
+	cout << SumOddElements(arr, kArraySize);
+	cout << endl;
 
-	int min = findmin(a, n);
-	int max = findmax(a, n);
-	int negsum = negativesum(a, n, min, max);
-	if ((negsum >= 0) || (min == max))
-		cout << "There is no elements between min&max " << endl;
-	else
-		cout << "Sum of elements between first&last negative elements of array: " << negsum << endl;
+	Negatives negatives = FindNegatives(arr, kArraySize);
 
-	removearray(a, n);
-	cout << "Changed array: ";
-	arrayout(a, n);
+	if ((negatives.first > -1) && (negatives.first < negatives.last)) {
+		if (negatives.first + 1 == negatives.last) {
+			cout << "\nPervij i poslednij elementi ryadom dryg s drygom.";
+		}
+		else {
+			cout << "\nSumma mejdu pervim i poslednim otricatel'nimi elementami: ";
+			cout << GetSumBtFirstLastNegatives(arr, negatives);
+		}
+	}
+	else {
+		cout << "\nNo two negative elements were found.";
+	}
+	cout << endl;
+
+	cout << "\nSqueezed array:\n";
+	SqueezeArray(arr, kArraySize);
+	PrintArray(arr, kArraySize);
 
 	return 0;
 }

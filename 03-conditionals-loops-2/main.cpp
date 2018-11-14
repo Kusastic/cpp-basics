@@ -4,8 +4,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
 	const int kMaxIters = 1000000;
 
 	double xn, xk, dx, eps;
@@ -19,8 +18,7 @@ int main()
 	cout << "Vvedite eps > 0: ";
 	cin >> eps;
 
-	if ((xn <= -1) || (xn > xk) || (xk > 1) || (dx <= 0) || (eps <= 0))
-	{
+	if ((xn <= -1) || (xn > xk) || (xk > 1) || (dx <= 0) || (eps <= 0))	{
 		cout << "\nWrong input data!\n";
 		return 1;
 	}
@@ -35,13 +33,11 @@ int main()
 	cout << fixed;
 	cout.precision(6);
 
-	for (; xn <= xk; xn += dx)
-	{
+	for (; xn <= xk; xn += dx) {
 		int n;
 		double ln = 0;
-		for (n = 0; n <= kMaxIters; n++)
-		{
-			double nth_term = (pow(-1, n) * pow(xn, n + 1)) / (n + 1);
+		for (n = 0; n <= kMaxIters; n++) {
+			double nth_term = pow(-1, n) * pow(xn, n + 1) / (n + 1);
 			ln += nth_term;
 			if (abs(nth_term) < eps) break;
 		}

@@ -1,8 +1,14 @@
+#include <iostream>
+
 using namespace std;
 
-void arrayout(int*a, const int n);
-int sum(int*a, const int n);
-int findmin(int*a, const int n);
-int findmax(int*a, const int n);
-int negativesum(int*a, const int n, int min, int max);
-void removearray(int*a, const int n);
+struct Negatives {
+	int first = -1;
+	int last = -1;
+};
+
+void PrintArray(double *arr, const int kArraySize);
+double SumOddElements(double *arr, const int kArraySize);
+Negatives FindNegatives(double *arr, const int kArraySize);
+double GetSumBtFirstLastNegatives(double *arr, Negatives negatives);
+void SqueezeArray(double *arr, const int kArraySize);

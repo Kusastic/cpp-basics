@@ -1,91 +1,104 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
-void vivodmas(int **a, int n) {
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++)
-			cout << setw(5) << a[i][j];
+bool ReadMatrix(int **matrix, int size, string file_name);
+void PrintMatrix(int **matrix, int size);
+void MultNonNegativeRows(int **matrix, int size);
+int MaxDiagonalSum(int **matrix, int size);
+
+int main() {
+	int size;
+	cout << "Enter razmernost' matrizy: ";
+	cin >> size;
+
+	int **matrix = new int*[size];
+	for (int i = 0; i < size; i++)
+		matrix[i] = new int[size];
+
+	if (!ReadMatrix(matrix, size, "matrix.txt"))
+		return 1;
+
+	PrintMatrix(matrix, size);
+	cout << endl;
+
+	MultNonNegativeRows(matrix, size);
+	cout << endl;
+
+	cout << " Max sum of diagonals in matrix: ";
+	cout << MaxDiagonalSum(matrix, size) << endl;
+
+	for (int i = 0; i < size; i++) delete[] matrix[i];
+	delete[] matrix;
+
+	return 0;
+}
+
+bool ReadMatrix(int **matrix, int size, string file_name) {
+	ifstream fin(file_name);
+	if (!fin.is_open()) {
+		cout << "Can't open file: " << file_name << endl;
+		return 0;
+	}
+
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			fin >> matrix[i][j];
+
+	fin.close();
+	return 1;
+}
+
+void PrintMatrix(int **matrix, int size) {
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++)
+			cout << setw(5) << matrix[i][j];
 		cout << endl;
 	}
 }
 
-void proizv(int **a, int n) {
-	for (int i = 0; i < n; i++) {
-		int przvd = a[i][0], part = 1;
-		for (int j = 0; j < n - 1; j++) {
-			if ((a[i][j] > 0) && (a[i][j + 1] > 0)) {
-				part = a[i][j + 1];
-				przvd *= part;
+void MultNonNegativeRows(int **matrix, int size) {
+	for (int i = 0; i < size; i++) {
+		bool negative_elements_in_row = false;
+		int product = 1;
+		for (int j = 0; j < size; j++) {
+			if (matrix[i][j] >= 0) {
+				product *= matrix[i][j];
 			}
 			else {
-				przvd = 0;
+				negative_elements_in_row = true;
 				break;
 			}
 		}
 
-		if (przvd > 0) {
-			cout << setw(22) << "Proizvedenie stroki: " << i + 1;
-			cout << " = " << przvd << endl;
-			//i+1 because array starts with 0
+		if (!negative_elements_in_row) {
+			cout << " Proizvedenie stroki: " << i + 1;
+			cout << " = " << product << endl;
 		}
 	}
 }
 
-int maxsumdiag(int **a, int n) {
-	int sum = -1000;
-	for (int i = 1; i < n; i++) {
-		int sum1 = 0, sum2 = 0;
-		for (int j = 0, k = j; j < n - i; j++, k++) {
-			sum1 += a[j + i][k];
-			sum2 += a[j][k + i];
+int MaxDiagonalSum(int **matrix, int size) {
+	// Main diagonal.
+	int max_sum = 0;
+	for (int i = 0; i < size; i++)
+		max_sum += matrix[i][i];
+
+	// Remaining diagonals.
+	for (int i = 1; i < size; i++) {
+		int sum_below_main = 0, sum_above_main = 0;
+		for (int j = 0, k = j; j < size - i; j++, k++) {
+			sum_below_main += matrix[j + i][k];
+			sum_above_main += matrix[j][k + i];
 		}
-		if (sum1 >= sum)
-			sum = sum1;
-		if (sum2 >= sum)
-			sum = sum2;
+
+		if (sum_below_main > max_sum)
+			max_sum = sum_below_main;
+		if (sum_above_main > max_sum)
+			max_sum = sum_above_main;
 	}
-	return sum;
-}
-
-int main() {
-	int n;
-	cout << "(n = kolichestvo strok ^2 in matrix)\n";
-	cout << "Enter 1 <= n <=10: ";
-
-	cin >> n;
-
-	int **a = new int*[n];
-
-	for (int i = 0; i < n; i++) {
-		a[i] = new int[n];
-	}
-
-	ifstream fin("file.txt");
-	if (!fin.is_open()) {
-		cout << "Error!! Something went wrong!" << endl;
-		return 0;
-	}
-
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-			fin >> a[i][j];
-
-	fin.close();
-
-	vivodmas(a, n);
-
-	proizv(a, n);
-	int sum = maxsumdiag(a, n);
-	if (!(sum == -1000))
-		cout << setw(32) << "Max sum of diagonals in array: " << sum;
-
-	for (int i = 0; i < n; i++) {
-		delete[] a[i];
-	}
-	delete[] a;
-
-	return 0;
+	return max_sum;
 }
