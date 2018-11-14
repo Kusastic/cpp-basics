@@ -3,8 +3,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
 	const double kEps = 1e-15;
 
 	double a, b, c, xn, xk, dx;
